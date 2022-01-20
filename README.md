@@ -2,9 +2,9 @@
 Using ML to play Minecraft
 
 Created by:
-Spencer Stepanek
-Ben Gur
-_________
+Spencer Stepanek  
+Ben Gur  
+_________  
 
 ## Required Python Packages
 - OpenCV  // Computer vision
