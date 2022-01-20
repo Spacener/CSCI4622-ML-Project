@@ -1,10 +1,10 @@
 # CSCI4622-ML-Project
 Using ML to play Minecraft
 
-Created by:
-Spencer Stepanek  
-Ben Gur  
-_________  
+Created by:  
+- Spencer Stepanek  
+- Ben Gur  
+- _________  
 
 ## Required Python Packages
 - OpenCV  // Computer vision
