@@ -7,7 +7,15 @@ Created by:
 - _________  
 
 
-## Required Python Packages
+## Requirements
+
+#### System Requirements
+
+- Windows  
+- PyCharm Recommended
+
+#### Python Packages
+
 - OpenCV  // Computer vision
 - pydirectinput  // automation
 - win32gui  // screen getting
