@@ -4,7 +4,7 @@ Using ML to play Minecraft
 Created by:  
 - Spencer Stepanek  
 - Ben Gur  
-- _________  
+- Daniel L Migdale  
 
 
 ## Requirements
