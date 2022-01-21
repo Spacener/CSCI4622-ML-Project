@@ -1,5 +1,5 @@
 
-from MinePi_SkinGenerator import render_3d_skin, render_3d_head, render_3d_skin_random
+from SkinRenderer.MinePi_SkinGenerator import render_3d_skin, render_3d_head, render_3d_skin_random
 import asyncio
 
 async def main():
