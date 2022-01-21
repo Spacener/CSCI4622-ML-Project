@@ -5,7 +5,6 @@
 import cv2
 
 from protocols import legs
-from protocols.trackPlayer import trackPlayer
 import numpy as np
 import imutils
 import win32gui
