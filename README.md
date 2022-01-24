@@ -3,7 +3,7 @@ Using ML to play Minecraft
 
 Created by:  
 - Spencer Stepanek  
-- Ben Gur  
+- Henry Whisman  
 - Daniel L Migdale  
 
 
