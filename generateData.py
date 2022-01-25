@@ -35,7 +35,7 @@ path = "textures/commonBlocks/stone.png"
 
 # randomly select for deepslate or stone
 if np.random.random() >= 0.5: # deepslate coloration!
-    path = "textures/commonBlocks/cobbled_deepslate.png"
+    path = "textures/commonBlocks/deepslate.png"
     bgColor = (70, 70, 70)
 
     # randomly select a valuable block to include
@@ -80,19 +80,38 @@ else: # Stone coloration!
 backgroundBlock = cv2.imread(path)
 valuableBlock = cv2.imread(valueablePath)
 
-# Each corncer is a cell of 4 blocks
+# Each corner is a cell of 4 blocks
 # Four corners make a chunk of 16 square blocks
 
-# make a valuable corner!
-if np.random.random() <= 0.5:
+valueLocationsTiles = []
+
+# make a valuable corner by random placement!
+rand = np.random.random()
+if rand < 0.25:
     valueCorner = cv2.vconcat([
         cv2.hconcat([backgroundBlock, backgroundBlock]),
         cv2.hconcat([backgroundBlock, valuableBlock])
     ])
-else:
+    valueLocationsTiles.append((valueCorner.shape[1]*0.75, valueCorner.shape[0]*0.75))
+elif rand < 0.5:
     valueCorner = cv2.vconcat([
         cv2.hconcat([backgroundBlock, valuableBlock]),
         cv2.hconcat([valuableBlock, valuableBlock])
+    ])
+    valueLocationsTiles.append((valueCorner.shape[1]*0.25, valueCorner.shape[0]*0.75))
+    valueLocationsTiles.append((valueCorner.shape[1] * 0.75, valueCorner.shape[0] * 0.25))
+    valueLocationsTiles.append((valueCorner.shape[1] * 0.75, valueCorner.shape[0] * 0.75))
+elif rand < 0.75:
+    valueCorner = cv2.vconcat([
+        cv2.hconcat([valuableBlock, backgroundBlock]),
+        cv2.hconcat([valuableBlock, valuableBlock])
+    ])
+    valueLocationsTiles.append((valueCorner.shape[1] * 0.25, valueCorner.shape[0]*0.25))
+    valueLocationsTiles.append((valueCorner.shape[1] * 0.75, valueCorner.shape[0] * 0.25))
+else: # valueless image
+     valueCorner = cv2.vconcat([
+        cv2.hconcat([backgroundBlock, backgroundBlock]),
+        cv2.hconcat([backgroundBlock, backgroundBlock])
     ])
 
 # assign a dull corner, with no valuable blocks
@@ -182,6 +201,8 @@ dim = (newWidth, newHeight)
 resized = cv2.resize(cropped_image, dim, interpolation=cv2.INTER_AREA)
 
 print("[DEBUG]: IMAGE DISPLAYED. PRESS ANY KEY TO ESCAPE")
+for valueLocation in valueLocationsTiles:
+    print("[VALUE]: {}".format(valueLocation))
 cv2.imshow("tiled", tiled)
 # cv2.imshow("cropped_image", cropped_image)
 cv2.imshow("resized", resized)
