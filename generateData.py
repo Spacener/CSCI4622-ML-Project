@@ -30,14 +30,47 @@ valuable_block_names = [
 # n_to_generate = input("How many training images would you like to generate?: ")
 
 # randomly select for deepslate or stone
-if np.random.random() > 0.5:
-    path = "textures/valuableBlocks/deepslate_diamond_ore.png"
-    bgColor = (50, 50, 50)
+if np.random.random() >= 0.5: # deepslate coloration!
+    path = "textures/commonBlocks/cobbled_deepslate.png"
+    bgColor = (90, 90, 90)
+
     # randomly select a valuable block to include
-    if np.random.random() > 0.2:
-else:
-    path = "textures/valuableBlocks/diamond_ore.png"
+    rand = np.random.random()
+    if rand > 1/7:
+        valueablePath = "textures/valuableBlocks/deepslate_diamond_ore.png"
+    elif rand > 2/7:
+        valueablePath = "textures/valuableBlocks/deepslate_gold_ore.png"
+    elif rand > 3/7:
+        valueablePath = "textures/valuableBlocks/deepslate_lapis_ore.png"
+    elif rand > 4/7:
+        valueablePath = "textures/valuableBlocks/deepslate_iron_ore.png"
+    elif rand > 5/7:
+        valueablePath = "textures/valuableBlocks/deepslate_coal_ore.png"
+    elif rand > 6/7:
+        valueablePath = "textures/valuableBlocks/deepslate_redstone_ore.png"
+    elif rand > 1:
+        valueablePath = "textures/valuableBlocks/deepslate_emrald_ore.png"
+
+else: # Stone coloration!
+    path = "textures/commonBlocks/stone.png"
     bgColor = (130, 130, 130)
+
+    # randomly select a valuable block to include
+    rand = np.random.random()
+    if rand > 1/7:
+        valueablePath = "textures/valuableBlocks/diamond_ore.png"
+    elif rand > 2/7:
+        valueablePath = "textures/valuableBlocks/gold_ore.png"
+    elif rand > 3/7:
+        valueablePath = "textures/valuableBlocks/lapis_ore.png"
+    elif rand > 4/7:
+        valueablePath = "textures/valuableBlocks/iron_ore.png"
+    elif rand > 5/7:
+        valueablePath = "textures/valuableBlocks/coal_ore.png"
+    elif rand > 6/7:
+        valueablePath = "textures/valuableBlocks/redstone_ore.png"
+    elif rand > 1:
+        valueablePath = "textures/valuableBlocks/emrald_ore.png"
 
 
 img = cv2.imread(path)
