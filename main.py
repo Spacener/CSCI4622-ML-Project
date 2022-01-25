@@ -29,8 +29,8 @@ while 1:
 
     img, left, top = readInactive(hwnd) # read screen!
 
-    onward()
-
+    # onward()
+    print(img)
     cv2.imshow("img", img)
     if cv2.waitKey(1) == ord('q'):
         break
