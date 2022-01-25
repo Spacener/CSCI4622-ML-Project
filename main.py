@@ -1,5 +1,5 @@
 # ------------------------------------------------
-# Spencer Stepanek
+# Team LearnCraft
 # 1/20/22
 #
 # main.py
