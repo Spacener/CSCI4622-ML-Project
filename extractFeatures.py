@@ -10,5 +10,7 @@
 import cv2
 import numpy as np
 from generateData import generate_n_images
+import csv
 
-generate_n_images(1, saveImages=True)
+# Gather images and ore locations
+generate_n_images(n=5, showImages=False, saveImages=True)

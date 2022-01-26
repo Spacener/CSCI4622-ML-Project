@@ -11,10 +11,12 @@
 
 import cv2
 import numpy as np
+import csv
 
-def generate_n_images(n=0, saveImages=False):
+def generate_n_images(n=0, showImages=True, saveImages=False):
+
     if n is None:
-        input("[PROMPT]: How many training images would you like to generate?: ")
+        n = input("[PROMPT]: How many training images would you like to generate?: ")
 
     # initialize default paths
     valueablePath = "textures/valuableBlocks/diamond_ore.png"
@@ -232,17 +234,30 @@ def generate_n_images(n=0, saveImages=False):
         for ore in range(len(ores)):
             print("[DATA]: ores[{}] at {}".format(ore, ores[ore]))
 
-        # cv2.imshow("tiled", tiled)
-        # cv2.imshow("outputImage", outputImage)
-        # cv2.imshow("cropped_image", cropped_image)
-        cv2.imshow("resized", resized)
+        if showImages:
+            # cv2.imshow("tiled", tiled)
+            # cv2.imshow("outputImage", outputImage)
+            # cv2.imshow("cropped_image", cropped_image)
+            cv2.imshow("resized", resized)
+
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
 
         # save the images
         if saveImages:
-            cv2.imwrite("data/image_{}.png".format(n), resized)
+            cv2.imwrite("data/image_{}.png".format(i), resized)
             print("[DATA]: Image saved!")
 
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+
+            with open('data/data_{}.csv'.format(i), mode='w') as ore_data:
+                ore_writer = csv.writer(ore_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+                for ore in ores:
+                    ore_writer.writerow(ore)
+
+        if n == 1:
+            print()
+            return resized, ores
+
 
     print("[SUCCESS]: All samples generated!")
