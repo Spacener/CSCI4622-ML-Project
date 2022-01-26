@@ -73,13 +73,13 @@ for i in range(int(n_to_generate)):
 
     # make a valuable corner by random placement!
     rand = np.random.random()
-    if rand < 0.25:
+    if rand < 0.3:
         valueCorner = cv2.vconcat([
             cv2.hconcat([backgroundBlock, backgroundBlock]),
             cv2.hconcat([backgroundBlock, valuableBlock])
         ])
         valueLocationsTiles.append((valueCorner.shape[1]*0.75, valueCorner.shape[0]*0.75))
-    elif rand < 0.5:
+    elif rand < 0.6:
         valueCorner = cv2.vconcat([
             cv2.hconcat([backgroundBlock, valuableBlock]),
             cv2.hconcat([valuableBlock, valuableBlock])
@@ -87,7 +87,7 @@ for i in range(int(n_to_generate)):
         valueLocationsTiles.append((valueCorner.shape[1]*0.25, valueCorner.shape[0]*0.75))
         valueLocationsTiles.append((valueCorner.shape[1] * 0.75, valueCorner.shape[0] * 0.25))
         valueLocationsTiles.append((valueCorner.shape[1] * 0.75, valueCorner.shape[0] * 0.75))
-    elif rand < 0.75:
+    elif rand < 0.9:
         valueCorner = cv2.vconcat([
             cv2.hconcat([valuableBlock, backgroundBlock]),
             cv2.hconcat([valuableBlock, valuableBlock])
