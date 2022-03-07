@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 import csv
 
-def generate_n_images(n=0, showImages=True, saveImages=False):
+def generate_n_images(n=0, showImages=True, saveImages=True):
 
     if n is None:
         n = input("[PROMPT]: How many training images would you like to generate?: ")
@@ -143,7 +143,7 @@ def generate_n_images(n=0, showImages=True, saveImages=False):
             valueLocation.append((value[0] + valueCorner.shape[1] + chunk.shape[1],
                                   value[1] + valueCorner.shape[1] + 3*chunk.shape[1]))
 
-        # cv2.imshow("chunk", img)
+        cv2.imshow("chunk", img)
 
         outputImage = tiled.copy()
 
@@ -227,8 +227,9 @@ def generate_n_images(n=0, showImages=True, saveImages=False):
 
             if valueLocation[v] is not None:
                 valueLocation[v] = (int(valueLocation[v][0] * ratio), int(valueLocation[v][1] * ratio))
+                # Want a circle? Here's a circle
                 # cv2.circle(resized, (int(valueLocation[v][0]), int(valueLocation[v][1])), 20, (0, 100, 255), 2)
-                ores.append((int(valueLocation[v][0] * ratio), int(valueLocation[v][1] * ratio)))
+                ores.append((int(valueLocation[v][0]), int(valueLocation[v][1])))
 
         print("\n[DEBUG]: IMAGE DISPLAYED. PRESS ANY KEY TO ESCAPE")
         for ore in range(len(ores)):
@@ -239,6 +240,10 @@ def generate_n_images(n=0, showImages=True, saveImages=False):
             # cv2.imshow("outputImage", outputImage)
             # cv2.imshow("cropped_image", cropped_image)
             cv2.imshow("resized", resized)
+
+            thresh = cv2.threshold(resized, 160, 220, cv2.THRESH_BINARY_INV)[1]
+            thresh = cv2.bitwise_not(thresh)
+            cv2.imshow("Window", thresh)
 
             cv2.waitKey(0)
             cv2.destroyAllWindows()
@@ -260,4 +265,8 @@ def generate_n_images(n=0, showImages=True, saveImages=False):
             return resized, ores
 
 
+
+
     print("[SUCCESS]: All samples generated!")
+
+generate_n_images(10, showImages=True)
