@@ -7,33 +7,29 @@
 
 
 import cv2
-import win32gui
-import time
-from protocols.eyes import readInactive
-from protocols.legs import onward
+import numpy as np
+import csv
 
-hwnd = win32gui.FindWindow(None, "Minecraft 1.18.1 - Singleplayer")
-img, left, top = readInactive(hwnd)
+ores = [] # initialize an empty list to store the features in
 
-for i in list(range(2)):
-    print(i+1)
-    time.sleep(1)
+# traverse the range of features
+for data_index in range(n):
+    print("[DATA]: Reading datapoint: {}".format(data_index))
 
-last_time = time.time()
-playerLock = 0
-invenUp = 0
+    # read the corresponding image feature
+    img = cv2.imread("data/image_{}.png".format(data_index))
+    ore = []
 
-while 1:
-    print("[DEBUG]: Stream latency: {} seconds".format(time.time()-last_time))
-    last_time = time.time()
+    # read the corresponding file of location features
+    with open('data/data_{}.csv'.format(data_index), newline='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            ore.append((row[0], row[1]))
 
-    img, left, top = readInactive(hwnd) # read screen!
+    # write ore data to a list
+    ores.append(ore)
+    print(ore)
 
-    # onward()
-    print(img)
-    cv2.imshow("img", img)
-    if cv2.waitKey(1) == ord('q'):
-        break
-
-    print("[DEBUG]: Stream latency: {} seconds".format(time.time() - last_time))
-    last_time = time.time()
+    # display the corresponding image
+    cv2.imshow(img, "Sample {}".format(data_index))
+    cv2.waitkey(0)
