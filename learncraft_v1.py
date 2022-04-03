@@ -34,13 +34,16 @@ class KNNClassifier:
         :return: self
         """
         self._ball_tree = sklearn.neighbors.BallTree(X)  # See documentation of BallTree and how it's used
+        print("0")
         self._y = y
         # Should be used to map the classes to {0,1,..C-1} if needed (C is the number of classes)
         # We can assume that the training data contains samples from all the possible classes
         classes = np.unique(y)
+        print("1")
         self.label_to_index = dict(zip(classes, range(classes.shape[0])))
+        print("2")
         self.index_to_label = dict(zip(range(classes.shape[0]), classes))
-
+        print("3")
         return self
 
     def majority_vote(self, indices_nearest_k, distances_nearest_k=None):
@@ -96,7 +99,7 @@ class KNNClassifier:
       inputs an image and extracts the pixels that aren't grey
       returns: array of x values and array of y values for the pixels, (and the color of those pixels)
       '''
-       def stone(color,sensitivity):
+      def stone(color,sensitivity):
         '''
         currently a dumb model to calculate if the color is grey
         '''

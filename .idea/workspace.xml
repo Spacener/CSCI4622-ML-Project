@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c7aa889-1c6a-41b2-ad69-92d804b6d9a3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/CSCI4622-ML-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CSCI4622-ML-Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9c7aa889-1c6a-41b2-ad69-92d804b6d9a3" name="Default Changelist" comment="another update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/data_0.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_0.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/data_1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/data_2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_2.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/data_3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_3.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/data_4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_4.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/data_5.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/data_5.csv" afterDir="false" />
@@ -24,8 +21,7 @@
       <change beforePath="$PROJECT_DIR$/data/image_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/image_7.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/image_8.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/image_8.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/image_9.png" beforeDir="false" afterPath="$PROJECT_DIR$/data/image_9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extractFeatures.py" beforeDir="false" afterPath="$PROJECT_DIR$/extractFeatures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateData.py" beforeDir="false" afterPath="$PROJECT_DIR$/generateData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/learncraft_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/learncraft_v1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -178,9 +174,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\salee_zb2of6i\CSCI 4622\CSCI4622-ML-Project\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
@@ -216,6 +212,21 @@
       <workItem from="1643931087012" duration="2141000" />
       <workItem from="1644536971681" duration="381000" />
     </task>
+    <task id="LOCAL-00001" summary="an update">
+      <created>1649020705142</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1649020705142</updated>
+    </task>
+    <task id="LOCAL-00002" summary="another update">
+      <created>1649021239771</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1649021239771</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -244,6 +255,22 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="an update" />
+    <MESSAGE value="another update" />
+    <option name="LAST_COMMIT_MESSAGE" value="another update" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/generateData.py">
