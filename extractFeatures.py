@@ -15,7 +15,8 @@ import imutils
 import matplotlib.pyplot as plt
 
 # Gather images and ore locations
-n = 1
+n = 100
+show = False
 
 generate_n_images(n=n, showImages=False, saveImages=True)
 
@@ -46,7 +47,8 @@ for data_index in range(n):
     thresh = cv2.threshold(gray, 160, 220, cv2.THRESH_BINARY_INV)[1]
 
     # blackThresh = cv2.threshold(gray, 0, 30, cv2.THRESH_BINARY_INV)[1]
-    cv2.imshow("blackThresh", thresh)
+    #if show:
+    #    cv2.imshow("blackThresh", thresh)
 
     mask = thresh.copy()
     output = cv2.bitwise_and(img, img, mask=mask)
@@ -80,13 +82,15 @@ for data_index in range(n):
 
             # print("centroids[i]: {}".format(centroids[i]))
             cv2.circle(img, (cX, cY), 20, (0,0,255), 2)
+        '''
+        if show:
+            # cv2.imshow("Eroded Mask", mask)
+            cv2.imshow("Thresh", thresh)
+            print("[ORE[{}]]: {}".format(i,ores[i]))
+            for ore in ores[i]:
+                print("ore: {}".format(ore))
+                cv2.circle(img, (int(ore[0]),int(ore[1])), 10, (0,255,255), 2)
+            cv2.imshow("image", img)
 
-        # cv2.imshow("Eroded Mask", mask)
-        cv2.imshow("Thresh", thresh)
-        print("[ORE[{}]]: {}".format(i,ores[i]))
-        for ore in ores[i]:
-            print("ore: {}".format(ore))
-            cv2.circle(img, (int(ore[0]),int(ore[1])), 10, (0,255,255), 2)
-        cv2.imshow("image", img)
-
-        cv2.waitKey(0)
+            cv2.waitKey(0)
+        '''

@@ -7,11 +7,11 @@
 
 
 import cv2
-import numpy as np
-import csv
-
-ores = [] # initialize an empty list to store the features in
-
+#import numpy as np
+#import csv
+n = 100
+X = []
+Y = []
 # traverse the range of features
 for data_index in range(n):
     print("[DATA]: Reading datapoint: {}".format(data_index))
@@ -28,8 +28,7 @@ for data_index in range(n):
 
     # write ore data to a list
     ores.append(ore)
-    print(ore)
+    X.append(img)
+    Y.append(ores)
 
-    # display the corresponding image
-    cv2.imshow(img, "Sample {}".format(data_index))
-    cv2.waitkey(0)
+print(X[0],Y[0])

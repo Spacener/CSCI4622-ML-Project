@@ -231,11 +231,11 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
                 # cv2.circle(resized, (int(valueLocation[v][0]), int(valueLocation[v][1])), 20, (0, 100, 255), 2)
                 ores.append((int(valueLocation[v][0]), int(valueLocation[v][1])))
 
-        print("\n[DEBUG]: IMAGE DISPLAYED. PRESS ANY KEY TO ESCAPE")
-        for ore in range(len(ores)):
-            print("[DATA]: ores[{}] at {}".format(ore, ores[ore]))
-
         if showImages:
+            print("\n[DEBUG]: IMAGE DISPLAYED. PRESS ANY KEY TO ESCAPE")
+            for ore in range(len(ores)):
+                print("[DATA]: ores[{}] at {}".format(ore, ores[ore]))
+
             # cv2.imshow("tiled", tiled)
             # cv2.imshow("outputImage", outputImage)
             # cv2.imshow("cropped_image", cropped_image)
@@ -269,4 +269,4 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
 
     print("[SUCCESS]: All samples generated!")
 
-generate_n_images(10, showImages=True)
+generate_n_images(100, showImages=False)
