@@ -285,4 +285,3 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
 
     print("[SUCCESS]: All samples generated!")
 
-generate_n_images(100, showImages=False)
