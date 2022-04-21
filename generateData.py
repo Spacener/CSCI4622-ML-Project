@@ -26,25 +26,34 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
 
         # randomly select for deepslate or stone
         if np.random.random() >= 0.5: # deepslate coloration!
+            
             path = "textures/commonBlocks/deepslate.png"
             bgColor = (70, 70, 70)
 
             # randomly select a valuable block to include
             rand = np.random.random()
+            index = -1
             if rand < 1/7:
                 valueablePath = "textures/valuableBlocks/deepslate_diamond_ore.png"
+                index = 0
             elif rand < 2/7:
                 valueablePath = "textures/valuableBlocks/deepslate_gold_ore.png"
+                index = 1
             elif rand < 3/7:
                 valueablePath = "textures/valuableBlocks/deepslate_lapis_ore.png"
+                index = 2
             elif rand < 4/7:
                 valueablePath = "textures/valuableBlocks/deepslate_iron_ore.png"
+                index = 3
             elif rand < 5/7:
                 valueablePath = "textures/valuableBlocks/deepslate_coal_ore.png"
+                index = 4
             elif rand < 6/7:
                 valueablePath = "textures/valuableBlocks/deepslate_redstone_ore.png"
+                index = 5
             elif rand < 1:
                 valueablePath = "textures/valuableBlocks/deepslate_emerald_ore.png"
+                index = 6
 
         else: # Stone coloration!
             path = "textures/commonBlocks/stone.png"
@@ -54,18 +63,25 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
             rand = np.random.random()
             if rand < 1/7:
                 valueablePath = "textures/valuableBlocks/diamond_ore.png"
+                index = 0
             elif rand < 2/7:
                 valueablePath = "textures/valuableBlocks/gold_ore.png"
+                index = 1
             elif rand < 3/7:
                 valueablePath = "textures/valuableBlocks/lapis_ore.png"
+                index = 2
             elif rand < 4/7:
                 valueablePath = "textures/valuableBlocks/iron_ore.png"
+                index = 3
             elif rand < 5/7:
                 valueablePath = "textures/valuableBlocks/coal_ore.png"
+                index = 4
             elif rand < 6/7:
                 valueablePath = "textures/valuableBlocks/redstone_ore.png"
+                index = 5
             elif rand < 1:
                 valueablePath = "textures/valuableBlocks/emerald_ore.png"
+                index = 6
 
         backgroundBlock = cv2.imread(path)
         valuableBlock = cv2.imread(valueablePath)
@@ -229,7 +245,7 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
                 valueLocation[v] = (int(valueLocation[v][0] * ratio), int(valueLocation[v][1] * ratio))
                 # Want a circle? Here's a circle
                 # cv2.circle(resized, (int(valueLocation[v][0]), int(valueLocation[v][1])), 20, (0, 100, 255), 2)
-                ores.append((int(valueLocation[v][0]), int(valueLocation[v][1])))
+                ores.append((int(valueLocation[v][0]), int(valueLocation[v][1]), index))
 
         if showImages:
             print("\n[DEBUG]: IMAGE DISPLAYED. PRESS ANY KEY TO ESCAPE")
@@ -258,7 +274,7 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
                 ore_writer = csv.writer(ore_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
                 for ore in ores:
-                    ore_writer.writerow(ore)
+                    ore_writer.writerow(ores)
 
         if n == 1:
             print()
