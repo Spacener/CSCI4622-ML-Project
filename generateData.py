@@ -274,7 +274,7 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
                 ore_writer = csv.writer(ore_data, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
                 for ore in ores:
-                    ore_writer.writerow(ores)
+                    ore_writer.writerow(ore)
 
         if n == 1:
             print()

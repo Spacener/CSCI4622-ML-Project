@@ -22,7 +22,9 @@ for data_index in range(n):
 
     # read the corresponding image feature
     img = cv2.imread("data/image_{}.png".format(data_index))
-    ore=[]
+
+    onehot_list = np.zeros(7)
+
 
     # read the corresponding file of location features
     with open('data/data_{}.csv'.format(data_index), newline='') as f:
@@ -30,12 +32,14 @@ for data_index in range(n):
         for row in reader:
             if len(row) ==0:
                 continue
-            ore.append(row)
+            index = row[2]
+
+            onehot_list[int(index)] = 1
+
 
     # write ore data to a list
-    ores.append(ore)
     X.append(img)
-    Y.append(ores)
+    Y.append(onehot_list)
 
 print(Y)
 # initial_model = keras.applictions.inception_v3.InceptionV3(input_shape=X.shape, )
