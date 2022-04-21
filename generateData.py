@@ -217,8 +217,8 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
         newHeight2 = int(0.6*outputImage.shape[0])
 
         # crop the image
-        randHeight = np.random.randint(0,newHeight1)
-        randWidth = np.random.randint(0,newWidth1)
+        randHeight = 0
+        randWidth = 0
         cropped_image = outputImage[
                         randHeight:newHeight2,
                         randWidth:newWidth2
