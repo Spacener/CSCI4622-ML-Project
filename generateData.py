@@ -54,6 +54,7 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
             elif rand < 1:
                 valueablePath = "textures/valuableBlocks/deepslate_emerald_ore.png"
                 index = 6
+            location = valueablePath.split("/")[-1].split('.')[0].split("_")[1]
 
         else: # Stone coloration!
             path = "textures/commonBlocks/stone.png"
@@ -82,6 +83,8 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
             elif rand < 1:
                 valueablePath = "textures/valuableBlocks/emerald_ore.png"
                 index = 6
+            location = valueablePath.split("/")[-1].split('.')[0].split("_")[0]
+        print(location,index)
 
         backgroundBlock = cv2.imread(path)
         valuableBlock = cv2.imread(valueablePath)
@@ -285,3 +288,5 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
 
     print("[SUCCESS]: All samples generated!")
 
+
+generate_n_images(5)
