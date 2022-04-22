@@ -13,10 +13,18 @@ import cv2
 import numpy as np
 import csv
 import os
+from pathlib import Path
 
 def generate_n_images(n=0, showImages=True, saveImages=True,
                      sub_directory=""):
-
+    directoryname = "data/"+sub_directory+"/"
+    if os.path.exists(directoryname):
+        for sd in os.listdir(directoryname):
+            if os.path.exists(directoryname+sd):
+                for f in os.listdir(directoryname+sd):
+                    os.remove(directoryname+sd+"/"+f)
+    
+            
     if n is None:
         n = input("[PROMPT]: How many training images would you like to generate?: ")
 
@@ -271,11 +279,14 @@ def generate_n_images(n=0, showImages=True, saveImages=True,
 
         # save the images
         if saveImages:
-            if not os.path.exists("data/"+sub_directory):
-                os.mkdir("data/"+sub_directory)
-            if sub_directory[-1] != '/':
-                sub_directory += "/"
             
+            if not os.path.exists(sub_directory):
+                if not os.path.exists(sub_directory +"/"+ location+"/"):
+                    newpath = "data/"+sub_directory+"/"+ location+"/"
+                    Path(newpath).mkdir(parents=True, exist_ok=True)
+
+            if sub_directory[-1]!='/' and len(sub_directory) > 0:
+                sub_directory+='/'
             print("data/{}{}/image_{}.png".format(sub_directory,location,i))
             cv2.imwrite("data/{}{}/image_{}.png".format(sub_directory,location,i), resized)
             print("[DATA]: Image saved!")
@@ -297,4 +308,4 @@ def generate_n_images(n=0, showImages=True, saveImages=True,
     print("[SUCCESS]: All samples generated!")
 
 
-generate_n_images(5,showImages=False,saveImages=True,sub_directory="train")
+generate_n_images(100,showImages=False,saveImages=True,sub_directory="train")
