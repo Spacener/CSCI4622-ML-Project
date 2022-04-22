@@ -30,17 +30,11 @@ import tensorflow as tf
 # import tensorflow_addons as tfa
 
 from sklearn.model_selection import train_test_split
-print("-"*500)
-n = 5000
 
-n = 50
-if False:
-    generate_n_images(n, showImages=False)
-
+'''
 X = []
 Y = []
 ores = []
-num_classes = 7
 # traverse the range of features
 for data_index in range(n):
     #print("[DATA]: Reading datapoint: {}".format(data_index))
@@ -62,6 +56,8 @@ for data_index in range(n):
     Y.append(onehot_list)
     # write ore data to a list
     X.append(img.tolist())
+
+
 
 
 
@@ -95,22 +91,37 @@ X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=test_percent)
 # X_test = X[int(len(X)*train_percent):]
 # Y_test = X[int(len(Y)*train_percent):]
 # print(len(X_train),len(Y_train))
-initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=Xshape[1:], include_top=False)
+'''
+print("-"*500)
+n = 5000
+import random
+random.seed(42)
+num_classes = 7
+n = 500
+if True:
+    generate_n_images(n, showImages=False,
+                     sub_directory="train")
+
+
+train_generator = tfk.preprocessing.image_dataset_from_directory("./data/train", image_size=(500,500),validation_split=.3,subset="validation",seed=42)
+
+initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=(500,500,3), include_top=False)
 print("after init_model")
 base_out = initial_model.output
 
-l1 = tfk.layers.GlobalAveragePooling2D()(base_out)
+l1 = tfk.layers.GlobalAveragePooling2D(name="end_of_inception")(base_out)
 
 temp = tfk.layers.Dense(512, activation=swish)(l1) 
 temp = tfk.layers.Dropout(0.5)(temp)
 temp = tfk.layers.Dense(256, activation=swish)(temp)
 temp = tfk.layers.Dropout(0.5)(temp)
-temp = tfk.layers.Dense(num_classes, activation='softmax')(temp)
+temp = tfk.layers.Dense(num_classes)(temp)
+temp = tfk.layers.Dense(1)(temp)
 tmodel = tfk.models.Model(inputs=initial_model.input, outputs=temp)
 print("after tmodel")
-#tmodel.summary()
+tmodel.summary()
 
-tmodel.compile(loss=tfk.losses.CategoricalCrossentropy(), # this means that teh network returns the log probabilities and not probas
+tmodel.compile(loss=tfk.losses.CategoricalCrossentropy(from_logits=True), # this means that teh network returns the log probabilities and not probas
               optimizer=tfk.optimizers.Adam(learning_rate=5e-5), # The optimizer that smooths the gradient
               metrics=["accuracy"]) # We want to track accuracy
 
@@ -118,19 +129,17 @@ print("after compiling")
 checkpoint_callbk = tf.keras.callbacks.ModelCheckpoint(
     "best_tiny_model", # name of file to save the best model to
     monitor="accuracy", # prefix val to specify that we want the model with best macroF1 on the validation data
-    verbose="auto", # prints out when the model achieve a better epoch
+    verbose=1, # prints out when the model achieve a better epoch
     mode="max", # the monitored metric should be maximized
     save_freq="epoch", # clear
     save_best_only=True, # of course, if not, every time a new best is achieved will be savedf differently
     save_weights_only=True # this means that we don't have to save the architecture, if you change the architecture, you'll loose the old weights
 )
 
-reduceLR_callbk = keras.callbacks.ReduceLROnPlateau(monitor='accuracy', factor=0.6, patience=8, verbose="auto", mode='max', min_lr=5e-5)
+reduceLR_callbk = keras.callbacks.ReduceLROnPlateau(monitor='accuracy', factor=0.6, patience=8, verbose=1, mode='max', min_lr=5e-5)
 
 print("after reduceLR_callbk")
-Y_train_tensor = tf.convert_to_tensor(Y_train)
-print("after Y_train_tensor")
-tmodel.fit(x=X_train, y=Y_train, callbacks=[reduceLR_callbk, checkpoint_callbk], epochs=10, validation_split=.3, batch_size = 1)
+tmodel.fit(train_generator, callbacks=[reduceLR_callbk, checkpoint_callbk], epochs=10)
 
 #tmodel.load_weights("best_tiny_model")
 
