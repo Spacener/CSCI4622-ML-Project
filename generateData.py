@@ -12,8 +12,10 @@
 import cv2
 import numpy as np
 import csv
+import os
 
-def generate_n_images(n=0, showImages=True, saveImages=True):
+def generate_n_images(n=0, showImages=True, saveImages=True,
+                     sub_directory=""):
 
     if n is None:
         n = input("[PROMPT]: How many training images would you like to generate?: ")
@@ -269,7 +271,13 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
 
         # save the images
         if saveImages:
-            cv2.imwrite("data/image_{}.png".format(i), resized)
+            if not os.path.exists("data/"+sub_directory):
+                os.mkdir("data/"+sub_directory)
+            if sub_directory[-1] != '/':
+                sub_directory += "/"
+            
+            print("data/{}{}/image_{}.png".format(sub_directory,location,i))
+            cv2.imwrite("data/{}{}/image_{}.png".format(sub_directory,location,i), resized)
             print("[DATA]: Image saved!")
 
 
@@ -289,4 +297,4 @@ def generate_n_images(n=0, showImages=True, saveImages=True):
     print("[SUCCESS]: All samples generated!")
 
 
-generate_n_images(5)
+generate_n_images(5,showImages=False,saveImages=True,sub_directory="train")
