@@ -62,7 +62,7 @@ for data_index in range(n):
     Y.append(onehot_list)
     # write ore data to a list
     X.append(img.tolist())
-    #Y.append(onehot_list)
+
 
 
 #labels = np.zeros((len(Y),7))
@@ -71,10 +71,12 @@ for data_index in range(n):
 #Y = list(labels)
 print('\n\n\n\n\n')
 x = X
+Xshape = []
 while type(x) == list:
     print(len(x),end=" ")
+   
+    Xshape.append(len(x))
     x = x[0]
-    
 print(type(x))
 
 print(Y)
@@ -83,17 +85,17 @@ x = Y
 while type(x) == list:
     print(len(x),end=" ")
     x = x[0]
-
+print(type(x))
 print('\n\n\n\n\n')
-train_percent = .7
+test_percent = .3
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=test_percent)
+# X_train = X[0:int(len(X)*train_percent)]
+# Y_train = Y[0:int(len(Y)*train_percent)]
 
-X_train = X[0:int(len(X)*train_percent)]
-Y_train = Y[0:int(len(Y)*train_percent)]
-
-X_test = X[int(len(X)*train_percent):]
-Y_test = X[int(len(Y)*train_percent):]
-print(len(X_train),len(Y_train))
-initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=(576,576,3), include_top=False)
+# X_test = X[int(len(X)*train_percent):]
+# Y_test = X[int(len(Y)*train_percent):]
+# print(len(X_train),len(Y_train))
+initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=Xshape[1:], include_top=False)
 print("after init_model")
 base_out = initial_model.output
 
@@ -116,21 +118,21 @@ print("after compiling")
 checkpoint_callbk = tf.keras.callbacks.ModelCheckpoint(
     "best_tiny_model", # name of file to save the best model to
     monitor="accuracy", # prefix val to specify that we want the model with best macroF1 on the validation data
-    verbose=1, # prints out when the model achieve a better epoch
+    verbose="auto", # prints out when the model achieve a better epoch
     mode="max", # the monitored metric should be maximized
     save_freq="epoch", # clear
     save_best_only=True, # of course, if not, every time a new best is achieved will be savedf differently
     save_weights_only=True # this means that we don't have to save the architecture, if you change the architecture, you'll loose the old weights
 )
 
-reduceLR_callbk = keras.callbacks.ReduceLROnPlateau(monitor='accuracy', factor=0.6, patience=8, verbose=1, mode='max', min_lr=5e-5)
+reduceLR_callbk = keras.callbacks.ReduceLROnPlateau(monitor='accuracy', factor=0.6, patience=8, verbose="auto", mode='max', min_lr=5e-5)
 
 print("after reduceLR_callbk")
 Y_train_tensor = tf.convert_to_tensor(Y_train)
 print("after Y_train_tensor")
-tmodel.fit(X_train, tf.convert_to_tensor(Y_train), callbacks=[reduceLR_callbk, checkpoint_callbk], epochs=10, validation_split=.3, batch_size = 1)
+tmodel.fit(x=X_train, y=Y_train, callbacks=[reduceLR_callbk, checkpoint_callbk], epochs=10, validation_split=.3, batch_size = 1)
 
-tmodel.load_weights("best_tiny_model")
+#tmodel.load_weights("best_tiny_model")
 
 #y_hat = tmodel.predict(test_generator) # logits of the 53 classes
 #y_hat = np.argmax(y_hat, axis=1) # take the classe with the hgiher logit
