@@ -13,10 +13,13 @@ import cv2
 import numpy as np
 import csv
 import os
+import random
 from pathlib import Path
 
 def generate_n_images(n=0, showImages=True, saveImages=True,
                      sub_directory=""):
+
+    random.seed(42)
     directoryname = "data/"+sub_directory+"/"
     if os.path.exists(directoryname):
         for sd in os.listdir(directoryname):
@@ -172,7 +175,7 @@ def generate_n_images(n=0, showImages=True, saveImages=True,
             valueLocation.append((value[0] + valueCorner.shape[1] + chunk.shape[1],
                                   value[1] + valueCorner.shape[1] + 3*chunk.shape[1]))
 
-        cv2.imshow("chunk", img)
+        #cv2.imshow("chunk", img)
 
         outputImage = tiled.copy()
 
@@ -308,4 +311,4 @@ def generate_n_images(n=0, showImages=True, saveImages=True,
     print("[SUCCESS]: All samples generated!")
 
 
-generate_n_images(100,showImages=False,saveImages=True,sub_directory="train")
+# generate_n_images(100,showImages=False,saveImages=True,sub_directory="train")
