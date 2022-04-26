@@ -46,63 +46,71 @@ def generate_n_images(n=0, showImages=True, saveImages=True,
             # randomly select a valuable block to include
             rand = np.random.random()
             index = -1
-            if rand < 1/7:
+            if rand < 1/9:
                 valueablePath = "textures/valuableBlocks/deepslate_diamond_ore.png"
-                index = 0
-            elif rand < 2/7:
+                location,index = "diamond", 0
+            elif rand < 2/9:
                 valueablePath = "textures/valuableBlocks/deepslate_gold_ore.png"
-                index = 1
-            elif rand < 3/7:
+                location,index = "gold", 1
+            elif rand < 3/9:
                 valueablePath = "textures/valuableBlocks/deepslate_lapis_ore.png"
-                index = 2
-            elif rand < 4/7:
+                location,index = "lapis", 2
+            elif rand < 4/9:
                 valueablePath = "textures/valuableBlocks/deepslate_iron_ore.png"
-                index = 3
-            elif rand < 5/7:
+                location,index = "iron", 3
+            elif rand < 5/9:
                 valueablePath = "textures/valuableBlocks/deepslate_coal_ore.png"
-                index = 4
-            elif rand < 6/7:
+                location,index = "coal", 4
+            elif rand < 6/9:
                 valueablePath = "textures/valuableBlocks/deepslate_redstone_ore.png"
-                index = 5
-            elif rand < 1:
+                location,index = "redstone", 5
+            elif rand < 7/9:
                 valueablePath = "textures/valuableBlocks/deepslate_emerald_ore.png"
-                index = 6
-            location = valueablePath.split("/")[-1].split('.')[0].split("_")[1]
-
+                location,index = "emerald", 6
+            elif rand < 8/9:
+                valueablePath = "./textures/valuableBlocks/deepslate_copper_ore.png"
+                location,index = "copper", 7
+            else:
+                valueablePath = "textures/commonBlocks/deepslate.png"
+                location,index = "no-ores", 8
         else: # Stone coloration!
             path = "textures/commonBlocks/stone.png"
             bgColor = (130, 130, 130)
 
             # randomly select a valuable block to include
             rand = np.random.random()
-            if rand < 1/7:
+            if rand < 1/9:
                 valueablePath = "textures/valuableBlocks/diamond_ore.png"
-                index = 0
-            elif rand < 2/7:
+                location,index = "diamond", 0
+            elif rand < 2/9:
                 valueablePath = "textures/valuableBlocks/gold_ore.png"
-                index = 1
-            elif rand < 3/7:
+                location, index = "gold", 1
+            elif rand < 3/9:
                 valueablePath = "textures/valuableBlocks/lapis_ore.png"
-                index = 2
-            elif rand < 4/7:
+                location,index = "lapis", 2
+            elif rand < 4/9:
                 valueablePath = "textures/valuableBlocks/iron_ore.png"
-                index = 3
-            elif rand < 5/7:
+                location,index = "iron", 3
+            elif rand < 5/9:
                 valueablePath = "textures/valuableBlocks/coal_ore.png"
-                index = 4
-            elif rand < 6/7:
+                location,index = "coal", 4
+            elif rand < 6/9:
                 valueablePath = "textures/valuableBlocks/redstone_ore.png"
-                index = 5
-            elif rand < 1:
+                location,index = "redstone", 5
+            elif rand < 7/9:
                 valueablePath = "textures/valuableBlocks/emerald_ore.png"
-                index = 6
-            location = valueablePath.split("/")[-1].split('.')[0].split("_")[0]
+                location,index = "emerald", 6
+            elif rand < 8/9:
+                valueablePath = "./textures/valuableBlocks/copper_ore.png"
+                location,index = "copper", 7
+            else:
+                valueablePath = "./textures/commonBlocks/stone.png"
+                location,index = "no-ores", 8
         print(location,index)
-
         backgroundBlock = cv2.imread(path)
         valuableBlock = cv2.imread(valueablePath)
         valueLocationsTiles = []
-
+        
         # Each corner is a cell of 4 blocks
         # Four corners make a chunk of 16 square blocks
 
