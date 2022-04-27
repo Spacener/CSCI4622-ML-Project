@@ -32,21 +32,27 @@ import tensorflow as tf
 from sklearn.model_selection import train_test_split
 
 print("-"*500)
-n = 500
+n = 5000
 import random
 random.seed(42)
-num_classes = 7
+num_classes = 9
 
-# generate_n_images(n, showImages=False,sub_directory="train")
-# generate_n_images(n*0.5, showImages=False,sub_directory="test")
+generate_n_images(n, showImages=False,sub_directory="train")
+generate_n_images(n*0.5, showImages=False,sub_directory="test")
 
 train_generator = tfk.preprocessing.image_dataset_from_directory("./data/train", image_size=(500,500),validation_split=.3, subset="training",seed=42)
 valid_generator = tfk.preprocessing.image_dataset_from_directory("./data/train", image_size=(500,500),validation_split=.3, subset="validation",seed=42)
 test_generator = tfk.preprocessing.image_dataset_from_directory("./data/test", image_size=(500,500),seed=42)
 
+def preprocess(generator):
+    return generator.map(lambda x, y: ( tfk.applications.inception_v3.preprocess_input(x),y))
 
+train_generator = preprocess(train_generator) 
+valid_generator = preprocess(valid_generator)
+test_generator  = preprocess(test_generator)
+    
 initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=(500,500,3), include_top=False)
-print("after init_model")
+
 base_out = initial_model.output
 
 l1 = tfk.layers.GlobalAveragePooling2D(name="end_of_inception")(base_out)
