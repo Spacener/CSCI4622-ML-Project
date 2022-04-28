@@ -28,12 +28,12 @@ import keras.regularizers
 from keras.preprocessing.image import ImageDataGenerator
 import tensorflow as tf
 # import tensorflow_addons as tfa
+import random
 
 from sklearn.model_selection import train_test_split
 
 print("-"*500)
 n = 2000
-import random
 random.seed(42)
 num_classes = 9
 
@@ -74,11 +74,20 @@ checkpoint_callbk = tf.keras.callbacks.ModelCheckpoint("learncraft", monitor="va
 reduceLR_callbk = keras.callbacks.ReduceLROnPlateau(monitor='val_accuracy', factor=0.6, patience=8, verbose=1, mode='max', min_lr=5e-5)
 
 print("after reduceLR_callbk")
-tmodel.fit(train_generator, callbacks=[reduceLR_callbk, checkpoint_callbk],validation_data=valid_generator,epochs=25)
+tmodel.fit(train_generator, callbacks=[reduceLR_callbk, checkpoint_callbk],validation_data=valid_generator,epochs=100)
 
-#tmodel.load_weights("learncraft")
+tmodel.load_weights("learncraft")
 
-#y_hat = tmodel.predict(test_generator)
+y_hat = tmodel.predict(test_generator)
+acc = 0
+for i in range(len(y_hat)):
+    if y_hat[i]== test_generator[1][i]:
+        acc +=1
+acc /= len(y_hat)
+
+print(acc)
+
+
 #y_hat = np.argmax(y_hat, axis=1) 
 
 # print(X[0],Y[0])
