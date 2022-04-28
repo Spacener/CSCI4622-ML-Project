@@ -17,6 +17,7 @@ from keras.preprocessing.image import ImageDataGenerator
 import tensorflow as tf
 from matplotlib.image import imread
 
+# load the model
 initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=(500,500,3), include_top=False)
 
 base_out = initial_model.output
@@ -31,26 +32,32 @@ temp = tfk.layers.Dense(9)(temp)
 tmodel = tfk.models.Model(inputs=initial_model.input, outputs=temp)
 
 tmodel.load_weights("learncraft")
-
-directoryname = input("input path to image to classify:")
+# ask user for image input
+directoryname = input("input path to image to classify (can be a single image or a path to a directory of images):")
 while not os.path.exists(directoryname):
     print("path not found")
     directoryname = input("input path to image to classify:")
 
-image = cv2.imread(directoryname)
-if image.shape[2] == 4:
-    image = image[:,:,:3]
-    print(image.shape)
-resized = tfk.layers.Resizing(500, 500)(image)
-processed_image = tfk.applications.inception_v3.preprocess_input(resized)
-print(np.array([processed_image]).shape)
-y = tmodel.predict(np.array([processed_image]))
-print(np.argmax(y),y)
-classification = os.listdir("data/train/")[np.argmax(y)]
-print(os.listdir("data/train/"))
-cv2.imshow("Classified as {}".format(classification), imread(directoryname))
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+labels = os.listdir("data/train/")
+resize = tfk.layers.Resizing(500,500)
 
+def classify_image(image,filename):
+    images = np.array([image])
+    resized = tfk.layers.Resizing(500, 500)(images)
+    processed_image = tfk.applications.inception_v3.preprocess_input(resized)
+    y = tmodel.predict(processed_image)
+    classification = labels[np.argmax(y)]
+    print("{} \t\t {}".format(filename,classification))
 
-    
+if(os.path.isfile(directoryname)):
+    # given just one file, classify the image
+    image = np.array(Image.open(directoryname).convert("RGB"))
+    classify_image(image,directoryname)
+else:
+    # given a directory classify each file in the directory (ignoring subdirectories) 
+    for file in os.listdir(directoryname):
+        filename = "{}{}{}".format(directoryname,"/" if directoryname[-1]!="/" else "",file)
+        if(os.path.isfile(filename)):
+            image =np.array(Image.open(filename).convert("RGB"))
+            classify_image(image,filename)
+            
