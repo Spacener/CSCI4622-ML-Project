@@ -1,0 +1,2 @@
+model_checkpoint_path: "learncraft"
+all_model_checkpoint_paths: "learncraft"

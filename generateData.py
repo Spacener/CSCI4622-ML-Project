@@ -106,7 +106,7 @@ def generate_n_images(n=0, showImages=True, saveImages=True,
             else:
                 valueablePath = "./textures/commonBlocks/stone.png"
                 location,index = "no-ores", 8
-        print(location,index)
+        #print(location,index)
         backgroundBlock = cv2.imread(path)
         valuableBlock = cv2.imread(valueablePath)
         valueLocationsTiles = []
