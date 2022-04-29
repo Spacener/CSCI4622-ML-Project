@@ -19,19 +19,17 @@ from matplotlib.image import imread
 
 # load the model
 initial_model = tfk.applications.inception_v3.InceptionV3(input_shape=(500,500,3), include_top=False)
-
 base_out = initial_model.output
-
 l1 = tfk.layers.GlobalAveragePooling2D(name="end_of_inception")(base_out)
-
 temp = tfk.layers.Dense(512, activation=swish)(l1) 
 temp = tfk.layers.Dropout(0.5)(temp)
 temp = tfk.layers.Dense(256, activation=swish)(temp)
 temp = tfk.layers.Dropout(0.5)(temp)
 temp = tfk.layers.Dense(9)(temp)
 tmodel = tfk.models.Model(inputs=initial_model.input, outputs=temp)
-
 tmodel.load_weights("learncraft")
+
+
 # ask user for image input
 directoryname = input("input path to image to classify (can be a single image or a path to a directory of images):")
 while not os.path.exists(directoryname):
